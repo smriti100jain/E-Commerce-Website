@@ -1,0 +1,64 @@
+{% extends 'base.html'%}
+{% block content %}
+<h3>  PENDING ITEMS </h3>	
+	<hr class="soft"/>
+			
+	<table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Product</th>
+				  <th>Name</th>
+                  <th>Quantity</th>
+				  <th>Total</th>
+                  <th>Date of Order</th>
+				</tr>
+              </thead>
+              <tbody>
+			  {% for i in t1 %}
+                <tr>
+                  <td> <img width="60" src="/static/images/{{i.product.id}}.jpg" alt=""/></td>
+                  <td>{{i.product.name|upper}}</td>
+				  <td>
+				  {{i.quantity}}
+					 <!-- <div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div> -->
+				  </td>
+                  <td>Rs.  {% widthratio i.quantity 1 i.product.price %}</td>
+                  <td>{{i.date}}</td>
+				  </tr>
+				{% endfor %}
+                 
+				</tbody>
+            </table>
+	
+<h3>  DELIVERED ITEMS </h3>	
+	<hr class="soft"/>
+			
+	<table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Product</th>
+				  <th>Name</th>
+                  <th>Quantity</th>
+				  <th>Total</th>
+                  <th>Date of Delivery</th>
+				</tr>
+              </thead>
+              <tbody>
+			  {% for i in t2 %}
+                <tr>
+                  <td> <img width="60" src="/static/images/{{i.product.id}}.jpg" alt=""/></td>
+                  <td>{{i.product.name|upper}}</td>
+				  <td>
+				  {{i.quantity}}
+					 <!-- <div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div> -->
+				  </td>
+                  <td>Rs.  {% widthratio i.quantity 1 i.product.price %}</td>
+                  <td>{{i.date_complete}}</td>
+				  </tr>
+				{% endfor %}
+                 
+				</tbody>
+            </table>
+	
+
+{% endblock %}

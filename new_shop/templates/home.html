@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- ==================================================Header End====================================================================== -->
+
+
+	<div class="span9">
+	<div>
+		<h3>Products </h3>
+		  
+		  
+		  <ul class="thumbnails">
+			{% for i in prod_list %}
+		  <li class="span3">
+			  <div class="thumbnail">
+				<a  href="/product/{{i.id}}/"><img src="/static/images/{{i.id}}.jpg" alt=""/></a>
+				<div class="caption">
+				  <h5>{{i.name|upper}}</h5>
+				  <p> 
+					{{i.description|truncatechars:30}} 
+				  </p>
+				  
+				<a class="btn btn-inverse" href="/product/{{i.id}}/">View</a> <span class="pull-right">{{i.price}}</span>
+			  </div>
+			  </div>
+			</li>
+		{% endfor %}
+			</ul>
+		</div>
+	</div>
+{% endblock %}

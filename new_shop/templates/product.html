@@ -1,0 +1,134 @@
+			{% extends "base.html" %}
+			{% block content %}
+			
+			<div id="gallery" class="span3">
+			<style>
+			#jquery-overlay {position: absolute;top: 0;left: 0;z-index: 90;width: 100%;height: 500px;}
+			#jquery-lightbox {position: absolute;top: 0;left: 0;width: 100%;z-index: 100;text-align: center;line-height: 0;}
+			#jquery-lightbox a img { border: none; }#lightbox-container-image-box {position: relative;background-color: #fff;width: 250px;height: 250px;margin: 0 auto;}
+			#lightbox-container-image { padding: 10px; }#lightbox-loading {position: absolute;top: 40%;left: 0%;height: 25%;width: 100%;text-align: center;line-height: 0;}
+			#lightbox-nav {	position: absolute;top: 0;left: 0;height: 100%;width: 100%;z-index: 10;}#lightbox-container-image-box > #lightbox-nav { left: 0; }#lightbox-nav a { outline: none;}
+			#lightbox-nav-btnPrev, #lightbox-nav-btnNext {width: 49%;height: 100%;zoom: 1;display: block;}
+			#lightbox-nav-btnPrev { left: 0; float: left;}#lightbox-nav-btnNext { right: 0; float: right;}
+			#lightbox-container-image-data-box {font: 10px Verdana, Helvetica, sans-serif;background-color: #fff;margin: 0 auto;line-height: 1.4em;overflow: auto;width: 100%;padding: 0 10px 0;}
+			#lightbox-container-image-data {	padding: 0 10px; 	color: #666; }
+			#lightbox-container-image-data #lightbox-image-details {width: 70%; float: left; text-align: left; }	
+			#lightbox-image-details-caption { font-weight: bold; }#lightbox-image-details-currentNumber {display: block; clear: left; padding-bottom: 1.0em;}
+			#lightbox-secNav-btnClose {width: 66px; float: right;padding-bottom: 0.7em;	}
+			</style>
+            <a href="/static/images/{{prod_id.id}}.jpg" >
+				<img src="/static/images/{{prod_id.id}}.jpg" width="100%" />
+            </a>
+			<div id="myCarousel" class="moreOptopm carousel slide">
+                <div class="carousel-inner">
+                  <div class="item active">
+                   <a href="/static/images/{{prod_id.id}}_1.jpg"> <img width="29%" src="/static/images/{{prod_id.id}}_1.jpg" alt=""/></a>
+                   <a href="/static/images/{{prod_id.id}}_2.jpg"> <img width="29%" src="/static/images/{{prod_id.id}}_2.jpg" alt=""/></a>
+                   <a href="/static/images/{{prod_id.id}}_3.jpg" > <img width="29%" src="/static/images/{{prod_id.id}}_3.jpg" alt=""/></a>
+                  </div>
+                </div>
+              <!--  
+			  <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+              <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a> 
+			  -->
+              </div>
+			  
+			</div>
+			<div class="span6">
+				<h3>{{prod_id.name|upper}} </h3>
+				<button type="submit" class="btn btn-danger"><small>{{prod_id.category|upper}}</small></button> <button type="submit" class="btn btn-success">{{prod_id.quantity}} items in stock</button>
+
+				<hr class="soft"/>
+				<form class="form-horizontal qtyFrm" action="/addtocart/{{prod_id.id}}/" method="post">{% csrf_token %}
+				  <div class="control-group">
+					<label class="control-label"><span>Rs. {{prod_id.price}}</span></label>
+					<div class="controls">
+					<input type="number" class="span1" name="qty" placeholder="Qty."/>
+					  <i class=" icon-shopping-cart"></i><button type="submit" class="btn btn-primary"> Add to cart</button>
+					</div>
+				  </div>
+				</form>
+				
+				<hr class="soft"/>
+				
+				<hr class="soft clr"/>
+				<p>
+				<b>PRODUCT DESCRIPTION :</b>
+				{{prod_id.description}}
+				</p>
+				<br class="clr"/>
+			<a name="detail"></a>
+				<hr class="soft"/>
+			</div>
+			
+			<div class="span9">
+            <ul id="productDetail" class="nav nav-tabs">
+              <li><a href="#profile" data-toggle="tab">Related Products</a></li>
+			  <li><a href="#users" data-toggle="tab">Previous Buyers</a></li>
+			  <li class="active"><a href="#home" data-toggle="tab">Comments</a></li>
+			</ul>
+            <div id="myTabContent" class="tab-content">
+              <div class="tab-pane fade" id="profile">
+			  <ul class="thumbnails">
+					{% for i in related_lst %}
+					<li class="span3">
+					  <div class="thumbnail">
+						<a href="product_details.html"><img src="/static/images/{{i.id}}.jpg" alt=""/></a>
+						<div class="caption">
+						  <h5>{{i.name}}</h5>
+						  <p> 
+							{{i.description|truncatechars:20}} 
+						  </p>
+						  <h4><a class="btn btn-large" href="/product/{{i.id}}/">VIEW</a> <span class="pull-right">Rs. {{i.price}}</span></h4>
+						</div>
+					  </div>
+					</li>
+					{% endfor %}
+				  </ul>
+			<hr class="soft"/>
+			</div>
+			  <div class="tab-pane fade" id="users">
+			  <ul>
+			  
+			  {% for i in buy_list %}
+			  <br/>
+			  <li><h5>{{ i.user.username|upper }}, {{i.address}}</h5></li>
+			  <br/>
+			  {% endfor %}
+			<hr class="soft"/>
+			</div>
+		<div class="tab-pane fade active in" id="home">
+		<div class="tab-content">
+		<ul>
+					{% for i in com_lst%}
+					<br/>
+					  <h4>{{i.user.username|upper}}</h4>
+					  {{i.comment}}
+					<br/>
+					{% endfor %}
+		</ul>
+		<br/><br/><br/><br/>
+		<h3>Write a Comment</h3>
+  
+  <br/>
+	<form action="/submit_com/{{prod_id.id}}/" method="post"> {% csrf_token %}
+   
+  <textarea  rows="5" cols="100" name="comm" ></textarea>
+	<br/>
+  <input type="submit" value="Comment" />
+    
+  </form>
+			
+			<hr class="soft"/>
+		</div>
+		
+				<br class="clr">
+				</div>
+				
+		</div>
+		
+          
+
+	
+	
+	{% endblock %}

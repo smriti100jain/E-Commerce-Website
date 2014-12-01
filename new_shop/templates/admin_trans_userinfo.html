@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en-us" >
+<head>
+<title>Select transaction to change | Django site admin</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+
+  
+  <link rel="stylesheet" type="text/css" href="/static/admin/css/changelists.css" />
+  
+  
+    <script type="text/javascript" src="/admin/jsi18n/"></script>
+  
+  
+  
+
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/static/admin/css/ie.css" /><![endif]-->
+
+<script type="text/javascript">window.__admin_media_prefix__ = "/static/admin/";</script>
+
+
+<script type="text/javascript" src="/static/admin/js/core.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="/static/admin/js/actions.js"></script>
+
+<script type="text/javascript">
+(function($) {
+    $(document).ready(function($) {
+        $("tr input.action-select").actions();
+    });
+})(django.jQuery);
+</script>
+
+
+<meta name="robots" content="NONE,NOARCHIVE" />
+</head>
+
+
+<body class="change-list">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name">Django administration</h1>
+
+        </div>
+        
+        <div id="user-tools">
+            Welcome,
+            <strong>ashish_kumar</strong>.
+            
+                
+                
+                
+                <a href="/admin/password_change/">Change password</a> /
+                
+                <a href="/admin/logout/">Log out</a>
+            
+        </div>
+        
+        
+    </div>
+    <!-- END Header -->
+    
+<div class="breadcrumbs">
+<a href="/admin/">Home</a>
+&rsaquo; <a href="/admin/product/">Product</a>
+&rsaquo; Transactions
+</div>
+
+    
+
+    
+        
+    
+
+    <!-- Content -->
+
+</tr>
+</thead>
+<tbody>
+&nbsp &nbsp <h3>Pending Items:</h3>
+<ul>
+{% for i in u_list_pending %}
+<h4>
+<li>{{i.product.name}}
+&nbsp -- &nbsp {{i.quantity}}
+&nbsp -- &nbsp {{i.date}}
+</li>
+</h4>
+{% endfor %}
+</ul>
+&nbsp &nbsp <h3>Delivered Items:</h3>
+
+<ul>
+{% for i in u_list_delivered %}
+<h3>
+<li>{{i.product.name}}
+&nbsp -- &nbsp {{i.quantity}}
+&nbsp -- &nbsp {{i.date_complete}}
+</li>
+</h3>
+{% endfor %}
+</ul>
+
+</tbody>
+</table>
+</div>
+
+
+          
+      
+      
+
+<p class="paginator">
+
+</p>
+
+      </form>
+    </div>
+  </div>
+
+        
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
+
+</body>
+</html>
